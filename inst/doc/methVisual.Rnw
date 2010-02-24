@@ -1,0 +1,351 @@
+% -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
+%\VignetteIndexEntry{Introduction to methVisual}
+%\VignettePackage{methVisual}
+\documentclass[a4paper]{article}
+% Definitions
+\newcommand{\slan}{{\tt S}}
+\newcommand{\rlan}{{\tt R}}
+\newcommand{\grid}{{\tt grid}}
+\newcommand{\code}[1]{{\tt #1}}
+\setlength{\parindent}{0in}
+\setlength{\parskip}{.1in}
+\setlength{\textwidth}{140mm}
+\setlength{\oddsidemargin}{10mm}
+
+\title{\textit{MethVisual}- R package for visualization and exploratory statistical analysis of DNA methylation profiles}
+\author{Arie Zackay and Christine Steinhoff}
+
+\begin{document}
+
+\maketitle
+
+<<echo=FALSE, results=hide>>=
+library(methVisual)
+library(Biostrings)
+library(gridBase) 
+library(ca)
+library(sqldf)
+library(plotrix)
+ps.options(pointsize=12)
+options(width=60)
+@
+
+\section{Background}
+DNA Methylation is a biochemical modification of DNA which in vertebrates almost exclusively occurs at CpG sites, e.g. a methyl group is added at the 5’ C position of cytosines. Exploration of DNA methylation and its impact on various regulatory cellular processes has become a very active field of research and comprises cancer, silencing of repetitive elements, development, chromatin remodeling, RNA interference, imprinting, tissue specificity, and evolutionary mutation processes
+To date the most accurate experimental procedures are based on bisulfite treatment followed by conversion of non methylated cytosines to uracil and sequencing. Analyzing this kind of data is complicated. Several steps, like alignment of bisulfite treated sequence to reference sequence, detection of low conversion rates of C to T in the bisulfite treatment and conversion process and quality control, are necessary before actually extracting methylation profiles for further statistical analysis. However, this procedure is a prerequisite for the investigation of functionality of DNA methylation. MethVisual allows for processing this kind of data as well as several basic exploratory analysis and visualization steps.
+
+
+\textit{MethVisual} enables intuitive visualization and exploratory analysis of binary DNA methylation data. The package allows the user to import binary methylation sequences (clone sequences) as generated from bisulfite sequencing, aligns them, perform quality control process and execute statistical analysis (Table \ref{table:functions}). The package was developed for methylation data but can also be applied on other binary coded data types in a straightforward manner.
+
+This document provides an example for the analysis workflow. It includes the required steps  for the analysis of methylation data, using the example data saved in this package. This example data is taken from the program \textit{BiQ-Analyzer}\footnote{http://biq-analyzer.bioinf.mpi-sb.mpg.de/}.
+
+The analysis steps are: 
+\begin{enumerate}
+\item {\bf Reading sequences} sample sequences and reference sequence
+\item {\bf Alignment control and quality control} 
+\item {\bf Computation of methylation status}
+\item {\bf Exploratory statistics and visualization} including lollipop plot, neighboring cooccurrence- and distant cooccurrence analysis
+\item {\bf Further statistical investigations} including hierarchical clustering and correspondence analysis
+\end{enumerate}
+
+
+\begin{table}[hp]
+\begin{center}
+\begin{tabular}{l l} \hline
+{\bf methVisual} & \\
+{\bf Functions} & {\bf Description} \\ \hline
+\code{Cooccurrence} & \parbox[t]{3in}{Cooccurrence of methylation data}  \\
+\code{MethAlignNW} & \parbox[t]{3in}{Summary of methylation states} \\
+\code{MethDataInput} & \parbox[t]{3in}{Sequence match control}\\
+\code{MethLollipops} & \parbox[t]{3in}{Lollipop plot}\\
+\code{MethylQC} & \parbox[t]{3in}{Alignment and quality control}\\
+\code{cgInAlign} & \parbox[t]{3in}{Amount of CpG sites}\\
+\code{cgMethFinder} & \parbox[t]{3in}{Methylation state}\\
+\code{coversionGenom} & \parbox[t]{3in}{Sequence conversion}\\
+\code{findNonAligned} & \parbox[t]{3in}{Aligned CpG positions}\\
+\code{heatMapMeth} & \parbox[t]{3in}{HeatMap over methylation data}\\
+\code{makeDataMethGFF} & \parbox[t]{3in}{Processing GFF methylation files}\\
+\code{makeLocalExpDir} & \parbox[t]{3in}{Saving example data}\\
+\code{makeTabFilePath} & \parbox[t]{3in}{Tab delimited text file}\\
+\code{matrixSNP} & \parbox[t]{3in}{Correlation between methylation states}\\
+\code{methCA} & \parbox[t]{3in}{Correspondence analysis (CA) methylation states}\\
+\code{methData} & \parbox[t]{3in}{BiQ-Analyzer dataset}\\
+\code{methFisherTest} & \parbox[t]{3in}{Fisher's exact Test on methylation Data}\\
+\code{methWhitneyUTest} & \parbox[t]{3in}{Mann Whitney U-Test on methylation data}\\
+\code{plotAbsMethyl} & \parbox[t]{3in}{Plot of the absolute number of methylation}\\
+\code{plotMatrixSNP} & \parbox[t]{3in}{Distant cooccurrence of methylation data}\\
+\code{readBisulfFASTA} & \parbox[t]{3in}{Read multiple FASTA file}\\
+\code{selectRefSeq} & \parbox[t]{3in}{Upload genomic sequence}\\
+\hline
+\end{tabular}
+\end{center}
+\caption{The functions are available in \textit{methVisual}}
+\label{table:functions}
+\end{table}
+
+
+
+In order to start please download the newest version of \textit{methVisual} and load it into R.
+
+<<>>=
+library(methVisual)  
+@
+
+\section{Reading Sequences}
+
+This section demonstrate the analysis of \textit{FASTA} files, that includes the clone sequences and the reference sequence.
+
+First, the example data has to be saved in a directory. Please make sure that you have reading and writing permission under \textit{R.home()} directory. If you do not have permission choose your own path.
+
+Creating BiQ-Analyzer directory in your \textit{R.home()}:
+<<>>=
+dir.create(file.path(R.home(component="home"),"/BiqAnalyzer/"))
+@
+Saving \textit{methVisual} example data in /BiqAnalyzer directory:
+<<results=hide>>=
+makeLocalExpDir(dataPath="/examples/BiqAnalyzer",localDir=file.path(R.home(component="home"),"/BiqAnalyzer/"))
+@
+
+Upload the list of clone sequences as tab delimited text file:
+<<>>= 
+methData <-MethDataInput(file.path(R.home(component="home"),"/BiqAnalyzer","/PathFileTab.txt"))
+@
+
+Hereby the sample sequence list is saved in a data frame object  \texttt{methData} with \textit{PATH} and \textit{FILE} column
+<<>>=
+methData
+@
+
+Read reference sequence into R
+<<>>=
+refseq <- selectRefSeq(file.path(R.home(component="home"),"/BiqAnalyzer","/Master_Sequence.txt"))
+@
+
+\section{Alignment Control and Quality Control}
+The alignment control (AC) procedure comprises a comparison of the sample sequences to the reference sequence  and is performed to prevent false alignment in the further analysis. False alignment can occur because of three reasons, sequences that are reversed, complement or reversed-complement to the genomic sequence. The AC procedure compare the score result computed by pairwise Needleman Wunsch Algorithm for global alignment implemented in the \textit{Biostrings}\footnote{http://www.bioconductor.org/packages/2.2/bioc/html/Biostrings.html} R package and select the alignment variant with the highest score among these three possibilities for each clone sequence involved. If changes are necessary, they will be either performed automatically or left to the user to include them. The alignment controlled sequences will be saved.
+Potential errors during the experimental process of bisulfite sequencing concern mainly bisulfite conversion and sequence identity. However, bisulfite conversion might be incomplete, that means even though non methylated cytosines (Cs) should be converted to uracils (Us) upon bisulfite treatment and subsequent amplification there might be non methylated Cs that have not been converted. In vertebrates we can assume that methylation is restricted to CpG sites. Thus, non converted Cs outside of  CpG sites can be regarded as non conversion failure. MethVisual further measures the bisulfite treatment quality by calculating this conversion ratio among Cs in non CpG sites, which is defined as the ratio between the number of unconverted Cs and the sum of all Cs outside CpG sites.
+\textit{MethVisual} also determines the sequence identity between each sample sequence and genomic sequence by calculating the sequencing error rate and restricting the comparison of sequenced sample versus reference sequence to As, Gs and Ts. The user can define a threshold percentage for rejecting sequences.  
+
+All control procedures are implemented under the function \textit{MethylQC()}.
+
+<<results=hide>>=
+QCdata <- MethylQC(refseq, methData,makeChange=TRUE,identity=80,conversion=90)
+@
+
+The sample sequence list after AC and QC procedure is saved as a data frame object with \textit{PATH{}} and \textit{FILE} column.
+
+<<>>=
+QCdata
+@
+
+\section{Calculation of methylation status}
+
+Now the user needs to extract the information on methylation states from the quality checked sample sequences. Given the aligned sequences, the function \texttt{MethAlignNW()} returns a list object with the following data: Sequence name, methylation state of CpG sites over all clone sequences, start and end position of alignments and the length of reference sequence.   
+
+<<>>=
+methData <- MethAlignNW( refseq , QCdata)
+methData
+@
+
+Now one can proceed with the visualization and statistics of the data! 
+
+\section{Exploratory statistics and visualization}
+
+\subsection{Amount of methylation}
+Plotting the absolute or relative number of methylation of all CpG positions of all sample sequences provides a global overview of the data set in terms of methylation amounts by genomic position (Figure \ref{fig:Absolute-Methylation-Plot}). 
+
+<<eval=FALSE>>=
+plotAbsMethyl(methData,real=TRUE)
+
+<<Absolute-Methylation-Plot,echo=FALSE, results=hide, fig=TRUE, width=6, height=6, include=FALSE>>=
+plotAbsMethyl(methData,real=TRUE)
+@
+
+
+\begin{figure}[hp]
+\begin{center}
+
+{
+\includegraphics[width=3.5in, height=3.5in]{methVisual-Absolute-Methylation-Plot}
+}
+
+\end{center}
+
+	\caption{ The number of methylated CpG over all 6 analyzed sequences. The x-axis is the genomic CpG position}
+ \label{fig:Absolute-Methylation-Plot}
+\end{figure}
+
+
+
+
+\subsection{Lollipop figures}
+A graphical representation of methylation state can be produced applying \textit{Lollipop} graphs (Figure \ref{fig:Lollipops-plot}). It allows the user to study the states of CpG sites in sample sequences. Each circle marks a CpG site under study. Full circles display methylated CpG sites and the non filled ones stand for non-methylated CpG states. The examined sequences are aligned with respect to the CpG sites in reference sequence in order to allow an intuitive visualization of methylation states according to their genomic order.
+
+<<eval=FALSE>>=
+MethLollipops(methData)
+
+<<Lollipops-plot,echo=FALSE, results=hide, fig=TRUE, width=6, height=6, include=FALSE>>=
+MethLollipops(methData)
+@
+
+
+\begin{figure}[hp]
+\begin{center}
+
+{
+\includegraphics[width=3.5in, height=3.5in]{methVisual-Lollipops-plot}
+}
+
+\end{center}
+
+	\caption{Lollipop display of binary methylation profiles in the genomic context}
+\label{fig:Lollipops-plot}
+\end{figure}
+
+
+
+\subsection{Neighboring cooccurrence display}
+The study of cooccurrence of methylated or non methylated CpG sites is frequently investigated. Given a set of bisulfite sequenced samples one would like to detect subgroups where specific CpG sites always occur coordinately either methylated or non methylated. One drawback of the widely used lollipop representation is that cooccurrence displays are not integrated. We implemented an option to visualize neighbored cooccurrence of methylation patterns. This display is restricted to neighboring cooccurrence of CpG methylation.
+
+<<eval=FALSE>>=
+file <- file.path(R.home(component="home"),"/BiqAnalyzer/","Cooccurrence.pdf")
+Cooccurrence(methData,file=file)
+@
+
+\subsection{Distant cooccurrence display}
+However, one might also want to explore cooccurrence features in a distant manner, i.e. not directly neighbored CpG sites. Thus, we provide a comprehensive visualization of all pairwise coccurrences of methylation (Figure \ref{fig:Distant-cooccurrence}). The correlation structure can be saved and statistically further explored.
+
+<<eval=FALSE>>=
+
+summery <- matrixSNP(methData)
+plotMatrixSNP(summery,methData)
+
+<<Distant-cooccurrence,echo=FALSE, results=hide, fig=TRUE, width=6, height=6, include=FALSE>>=
+summery <- matrixSNP(methData)
+plotMatrixSNP(summery,methData)
+@
+
+
+\begin{figure}[hp]
+\begin{center}
+
+{
+\includegraphics[width=3.5in, height=3.5in]{methVisual-Distant-cooccurrence}
+}
+
+\end{center}
+
+	\caption{Distant cooccurrence plot. Each pairwise comparison, e.g. neighboring and distant, leads to a correlation value that is displayed in the matrix. Correlation is color coded and the color coding bar is given beside the graph. The numbers in the diagonal give the genomic position of each CpG site.}
+ \label{fig:Distant-cooccurrence}
+\end{figure}
+
+
+\section{Further statistical investigations}
+
+\subsection{Statistical tests}
+Basic statistical tests options comprise \textit{(i)} testing for independence of each CpG site between two groups (Fisher's exact test) or \textit{(ii)} of entire sets of CpG sites (Mann-Whitney U test). More specifically, for \textit{(i)} given two experimental groups for each CpG site the user can investigate whether there is a dependence of methylation status and class membership of the two groups (Figure \ref{fig:Fisher-Test}). In the case of  \textit{(ii)} given two experimental groups the hypothesis that the distribution of methylated and non-methylated sites in the profile under study is being tested. 
+
+<<eval=FALSE>>=
+
+methFisherTest(methData, c(2,3,5), c(1,4,6))
+
+<<Fisher-Test,echo=FALSE, results=hide, fig=TRUE, width=6, height=6, include=FALSE>>=
+methFisherTest(methData, c(2,3,5), c(1,4,6))
+@
+
+\begin{figure}[h]
+\begin{center}
+
+{
+\includegraphics[width=3.5in, height=3.5in]{methVisual-Fisher-Test}
+}
+
+\end{center}
+
+	\caption{ P-values of methylated CpG position}
+ \label{fig:Fisher-Test}
+\end{figure}
+
+
+
+
+Looking at the Lollipop plot (Figure \ref{fig:Lollipops-plot}) one can see that the clone sequences \textit{(2,3,5)} seems to have different CpG pattern than clones \textit{(1,4,6)}. The calculated \textit{p-value} using Whithney-U-Test confirm the significant pattern difference. 
+<<>>=
+methWhitneyUTest(methData, c(2,3,5), c(1,4,6))
+@
+
+\subsection{Clustering}
+Clustering is a methods for exploring and visualizing groups with similar features. We provide a hierarchical bi-clustering of methylation states. Due to the fact that we analyze binary rather than continuous data the default option for distance is the binary rather than euclidean distance (Figure 5 \ref{fig:Heat-Map}).
+
+<<eval=FALSE>>=
+
+heatMapMeth(methData)
+
+<<Heat-Map,echo=FALSE, results=hide, fig=TRUE, width=6, height=6, include=FALSE>>=
+heatMapMeth(methData)
+@
+
+
+\begin{figure}[h]
+\begin{center}
+
+{
+\includegraphics[width=3.5in, height=3.5in]{methVisual-Heat-Map}
+}
+
+\end{center}
+
+	\caption{Bi-clustering due to methylated CpG positions of sample sequences}
+ \label{fig:Heat-Map}
+\end{figure}
+
+\subsection{simple correspondence analysis}
+Using simple correspondence analysis (CA) one can detect clusters of sub-samples that show similar cooccurrence patterns. Based on aligned sequences under study a CA plot displays two way clustering of methylation status of all sequences and all aligned CpG positions (Figure \ref{fig:CA}). 
+
+<<eval=FALSE>>=
+
+methCA(methData)
+
+<<CA,echo=FALSE, results=hide, fig=TRUE, width=6, height=6, include=FALSE>>=
+methCA(methData)
+@
+
+
+\begin{figure}[hp]
+\begin{center}
+
+{
+\includegraphics[width=3.5in, height=3.5in]{methVisual-CA}
+}
+
+\end{center}
+
+	\caption{Simple correspondence analysis of methylated CpG positions and samples sequences}
+ \label{fig:CA}
+\end{figure}
+
+
+%\bibliographystyle{plain}
+%\bibliography{methVisual}
+
+
+% Start a new page
+% Not echoed, not evaluated
+% ONLY here for checkVignettes so that all output doesn't
+% end up on one enormous page
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+

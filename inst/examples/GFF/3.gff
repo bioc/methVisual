@@ -1,0 +1,10 @@
+chr7	mm8	CpG	2	3	0.1	.	.	CpG=156;TpG=2
+chr7	mm8	CpG	40	41	1	.	.	CpG=0;TpG=3
+chr7	mm8	CpG	10	11	0.1	.	.	CpG=1;TpG=7
+chr7	mm8	CpG	15	16	1	.	.	CpG=0;TpG=3
+chr12	mm8	CpG	15	16	1	.	.	CpG=0;TpG=3
+chr7	mm8	CpG	22	23	0.1	.	.	CpG=2;TpG=17
+chr7	mm8	CpG	60	61	0.1	.	.	CpG=3;TpG=23
+chr7	mm8	CpG	32	33	0.1	.	.	CpG=2;TpG=7
+chrX	mm8	CpG	15	16	1	.	.	CpG=0;TpG=3
+
