@@ -25,7 +25,7 @@ In order to avoid bad qualitative data entering this methylation analysis three 
 Returns data frame of sequences names after QC and their paths saves QCINFO.Rdata under sequence files directory
 }
 
-\author{Arie Zackay <zackay@molgen.mpg.de>, Christine Steinhoff <steinhof@molgen.mpg.de>}
+\author{Arie Zackay <arie.zackay@mail.huji.ac.il>, Christine Steinhoff <steinhof@molgen.mpg.de>}
 
 
 \examples{

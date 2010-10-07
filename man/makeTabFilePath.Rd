@@ -17,7 +17,7 @@ makeTabFilePath(localDir)
 The function creates a tab delimited text file with information on path and file names for files which are stored in a given directory. This tab-delimited text file is the input file that contains the clone sequences. The makeTabFilePath() function was implemented in order to create a control step before starting the analysis. The best way of using the function is by collecting all clone sequence files which need to be analyzed into one empty directory and apply this function to the directory.
 }
 
-\author{Arie Zackay <zackay@molgen.mpg.de>, Christine Steinhoff <steinhof@molgen.mpg.de>}
+\author{Arie Zackay <arie.zackay@mail.huji.ac.il>, Christine Steinhoff <steinhof@molgen.mpg.de>}
 
 
 \examples{

@@ -22,7 +22,7 @@ The correlation values are color coded (gray levels) and the color coding bar is
 Returns a correlation matrix displaying dependencies values for all CpG positions
 }
 
-\author{Arie Zackay <zackay@molgen.mpg.de>,  Christine Steinhoff <steinhof@molgen.mpg.de>}
+\author{Arie Zackay <arie.zackay@mail.huji.ac.il>,  Christine Steinhoff <steinhof@molgen.mpg.de>}
 
 
 \examples{

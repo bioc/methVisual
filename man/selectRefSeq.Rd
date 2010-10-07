@@ -18,7 +18,7 @@ Uploading genomic sequence
 This function is used in order to read the reference sequence into the R environment. The reference sequences must be in fasta format. The user must give the path and name of the reference sequence in a character string.
 }
 
-\author{Arie Zackay <zackay@molgen.mpg.de>, Christine Steinhoff <steinhof@molgen.mpg.de>}
+\author{Arie Zackay <arie.zackay@mail.huji.ac.il>, Christine Steinhoff <steinhof@molgen.mpg.de>}
 
 
 \examples{

@@ -25,7 +25,7 @@ A vector with the absolute/relative number of methylation on genomic sequence Cp
 
 }
 
-\author{Arie Zackay <zackay@molgen.mpg.de>, Christine Steinhoff <steinhof@molgen.mpg.de>}
+\author{Arie Zackay <arie.zackay@mail.huji.ac.il>, Christine Steinhoff <steinhof@molgen.mpg.de>}
 
 
 \examples{

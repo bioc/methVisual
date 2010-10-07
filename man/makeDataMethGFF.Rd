@@ -25,7 +25,7 @@ This function reads and processes GFF files and creates a list object (like the 
 methData object
 }
 
-\author{Arie Zackay <zackay@molgen.mpg.de>, Christine Steinhoff <steinhof@molgen.mpg.de>}
+\author{Arie Zackay <arie.zackay@mail.huji.ac.il>, Christine Steinhoff <steinhof@molgen.mpg.de>}
 
 
 \examples{

@@ -19,7 +19,7 @@ makeLocalExpDir(dataPath,localDir)
 Help function for saving data provided along with the package followed by creation of a tab delimited text file with information on PATHs and FILEs
 }
 
-\author{Arie Zackay <zackay@molgen.mpg.de>, Christine Steinhoff <steinhof@molgen.mpg.de>}
+\author{Arie Zackay <arie.zackay@mail.huji.ac.il>, Christine Steinhoff <steinhof@molgen.mpg.de>}
 
 
 \examples{

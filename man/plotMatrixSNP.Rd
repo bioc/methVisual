@@ -23,7 +23,7 @@ The SNP Plot produce a visualisation of the cooccurrence between methylation sta
 SNP Plot as pdf file saved in given path and name. 
 }
 
-\author{Arie Zackay <zackay@molgen.mpg.de>, Christine Steinhoff <steinhof@molgen.mpg.de>}
+\author{Arie Zackay <arie.zackay@mail.huji.ac.il>, Christine Steinhoff <steinhof@molgen.mpg.de>}
 
 
 \examples{

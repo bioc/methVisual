@@ -24,7 +24,7 @@ The modification in methVisual lollipop plot is the calculation and visualizatio
 \value{
 summary plot that will be saved by default as pdf file under the given path and name}
 
-\author{Arie Zackay <zackay@molgen.mpg.de>, Christine Steinhoff <steinhof@molgen.mpg.de>}
+\author{Arie Zackay <arie.zackay@mail.huji.ac.il>, Christine Steinhoff <steinhof@molgen.mpg.de>}
 
 
 \examples{

@@ -20,7 +20,7 @@ Determination of aligned and not-aligned positions of CpGs of examined sequences
 Integer matrix, where columns=CpG positions, row=clone sequences. 0 = not methylated, 1 = methylated, 2 = not aligned
 }
 
-\author{Arie Zackay <zackay@molgen.mpg.de>, Christine Steinhoff <steinhof@molgen.mpg.de>}
+\author{Arie Zackay <arie.zackay@mail.huji.ac.il>, Christine Steinhoff <steinhof@molgen.mpg.de>}
 
 \examples{
 data(methData)

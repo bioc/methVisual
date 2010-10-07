@@ -17,7 +17,7 @@ The lollipops plot allows the user to study the genomic localization and states 
 
 \value{Returns a "lollipop" plot}
 
-\author{Arie Zackay <zackay@molgen.mpg.de>, Christine Steinhoff <steinhof@molgen.mpg.de>}
+\author{Arie Zackay <arie.zackay@mail.huji.ac.il>, Christine Steinhoff <steinhof@molgen.mpg.de>}
 
 \examples{
 data("methData")

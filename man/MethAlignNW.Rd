@@ -21,7 +21,7 @@ Given aligned sequences after quality control, the function returns a list objec
 Returns a summery on sequence alignments and methylation states
 }
 
-\author{Arie Zackay <zackay@molgen.mpg.de>, Christine Steinhoff <steinhof@molgen.mpg.de>}
+\author{Arie Zackay <arie.zackay@mail.huji.ac.il>, Christine Steinhoff <steinhof@molgen.mpg.de>}
 
 
 \examples{

@@ -27,7 +27,7 @@ Based on aligned sequences under study a heatmap is created that displays two wa
  Heat-Map image is displayed and optionally saved as postscript in given path and name. 
 }
 
-\author{Arie Zackay <zackay@molgen.mpg.de>,Christine Steinhoff <steinhof@molgen.mpg.de>}
+\author{Arie Zackay <arie.zackay@mail.huji.ac.il>,Christine Steinhoff <steinhof@molgen.mpg.de>}
 
 
 \examples{

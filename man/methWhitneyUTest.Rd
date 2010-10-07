@@ -22,7 +22,7 @@ Mann Whitney U-Test (known also as wilcoxon-rank-sum test), is a non parametric 
 Returns a p-value
 }
 
-\author{Arie Zackay <zackay@molgen.mpg.de>, Christine Steinhoff <steinhof@molgen.mpg.de>}
+\author{Arie Zackay <arie.zackay@mail.huji.ac.il>, Christine Steinhoff <steinhof@molgen.mpg.de>}
 
 
 \examples{

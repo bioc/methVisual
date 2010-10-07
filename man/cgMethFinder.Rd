@@ -19,7 +19,7 @@ This function is used in the methVisual package as internal function for the cal
 
 \value{Returns a (0,1) vector. 1 stands for methylation and 0 for non methylation status.}
 
-\author{Arie Zackay <zackay@molgen.mpg.de>, ,Christine Steinhoff <steinhof@molgen.mpg.de>}
+\author{Arie Zackay <arie.zackay@mail.huji.ac.il>, ,Christine Steinhoff <steinhof@molgen.mpg.de>}
 
 \examples{
 ref <- "TTCGGGATCGTTTTTTTAGTAGGTCGGAAGTTTCGTTATGGATTCGTTTTTC"

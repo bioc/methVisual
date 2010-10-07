@@ -21,7 +21,7 @@ Correspondence analysis (CA) is a multivariate statistical technique which is ap
 CA diagram as postscript file saved in given path and name. 
 }
 
-\author{Arie Zackay <zackay@molgen.mpg.de>, Christine Steinhoff <steinhof@molgen.mpg.de>}
+\author{Arie Zackay <arie.zackay@mail.huji.ac.il>, Christine Steinhoff <steinhof@molgen.mpg.de>}
 
 
 \examples{

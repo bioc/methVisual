@@ -18,7 +18,7 @@ This function computes the amount of CpGs on the positions corresponds to genomi
 Integer vector of CpG amount
 }
 
-\author{Arie Zackay <zackay@molgen.mpg.de>, Christine Steinhoff <steinhof@molgen.mpg.de>}
+\author{Arie Zackay <arie.zackay@mail.huji.ac.il>, Christine Steinhoff <steinhof@molgen.mpg.de>}
 
 \examples{
 data(methData)
