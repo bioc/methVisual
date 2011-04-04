@@ -31,7 +31,8 @@ options(width=60)
 @
 
 \section{Background}
-DNA Methylation is a biochemical modification of DNA which in vertebrates almost exclusively occurs at CpG sites, e.g. a methyl group is added at the 5’ C position of cytosines. Exploration of DNA methylation and its impact on various regulatory cellular processes has become a very active field of research and comprises cancer, silencing of repetitive elements, development, chromatin remodeling, RNA interference, imprinting, tissue specificity, and evolutionary mutation processes
+DNA Methylation is a biochemical modification of DNA which in vertebrates almost
+exclusively occurs at CpG sites, e.g. a methyl group is added at the 5 prime C position of cytosines. Exploration of DNA methylation and its impact on various regulatory cellular processes has become a very active field of research and comprises cancer, silencing of repetitive elements, development, chromatin remodeling, RNA interference, imprinting, tissue specificity, and evolutionary mutation processes
 To date the most accurate experimental procedures are based on bisulfite treatment followed by conversion of non methylated cytosines to uracil and sequencing. Analyzing this kind of data is complicated. Several steps, like alignment of bisulfite treated sequence to reference sequence, detection of low conversion rates of C to T in the bisulfite treatment and conversion process and quality control, are necessary before actually extracting methylation profiles for further statistical analysis. However, this procedure is a prerequisite for the investigation of functionality of DNA methylation. MethVisual allows for processing this kind of data as well as several basic exploratory analysis and visualization steps.
 
 
