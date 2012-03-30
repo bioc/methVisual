@@ -108,8 +108,10 @@ for (i in 1:length(files)) {
 	if (chr=='X') {chr<-"30"}
 	if (chr=='Y') {chr<-"40"}
 	cat("processing ", paste(files[i])," DONE",'\n')
-	gff$V1 <- colV1  
-	dataframe <- fn$sqldf("select *  from gff where V1=$chr and V4>$start and V4 < $end order by V4")
+	gff$V1 <- colV1
+        cmd <- sprintf("SELECT * FROM gff WHERE V1=%s AND V4 > %d AND V4 < %d
+                        ORDER BY V4", chr, as.integer(start), as.integer(end))
+	dataframe <- fn$sqldf(cmd)
 	cat("extracting data from ", paste(files[i])," DONE",'\n')
 	seqName[i] <- files[i]
 	startEnd[i,] <- c(dataframe$V4[1] , dataframe$V4[length(dataframe$V4)])
