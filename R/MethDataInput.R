@@ -188,9 +188,9 @@ seqName <- c()
 
 if (sFileName != "") {
 
-  bis <- readFASTA(sFileName, strip.descs=TRUE)
-  seqDNA <- sapply(bis, function(x) x$seq)
-  seqName <-  sapply(bis, function(x) x$desc)
+  bis <- readDNAStringSet(sFileName)
+  seqDNA <- as.character(bis)
+  seqName <-  as.character(names(bis))
 
 for (i in 1:length(seqDNA)) {
 

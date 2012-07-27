@@ -26,12 +26,11 @@ This procedure controls whether the *.fasta files written in a tabdelimited file
 ## make sure that you have writing 
 ## permission under R.home() directory. If you do not have permission
 ## choose your own path.
- 
-dir.create(file.path(R.home(component="home"),"/BiqAnalyzer")) 
-makeLocalExpDir(dataPath="/examples/BiqAnalyzer",
-	localDir=file.path(R.home(component="home"),"/BiqAnalyzer"))
-datameth <-MethDataInput(file.path(R.home(component="home"),
-				"/BiqAnalyzer/PathFileTab.txt"))
+#dir.create(file.path(R.home(component="home"),"/BiqAnalyzer")) 
+BiqAnalyzer_path <- file.path(tempdir(), "BiqAnalyzer")
+dir.create(BiqAnalyzer_path) 
+makeLocalExpDir(dataPath="/examples/BiqAnalyzer", localDir=BiqAnalyzer_path)
+datameth <-MethDataInput(file.path(BiqAnalyzer_path, "PathFileTab.txt"))
 }
 \keyword{graphs}
 

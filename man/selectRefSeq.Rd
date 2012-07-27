@@ -25,12 +25,11 @@ This function is used in order to read the reference sequence into the R environ
 ## make sure that you have reading 
 ## permission under R.home() directory. If you do not have permission
 ## choose your own path.
-
-dir.create(file.path(R.home(component="home"),"/BiqAnalyzer")) 
-makeLocalExpDir(dataPath="/examples/BiqAnalyzer",
-	localDir=file.path(R.home(component="home"),"/BiqAnalyzer"))
-refseq <- selectRefSeq(file.path(R.home(component="home"),
-			"/BiqAnalyzer/Master_Sequence.txt"))
+#dir.create(file.path(R.home(component="home"),"/BiqAnalyzer")) 
+BiqAnalyzer_path <- file.path(tempdir(), "BiqAnalyzer")
+dir.create(BiqAnalyzer_path) 
+makeLocalExpDir(dataPath="/examples/BiqAnalyzer", localDir=BiqAnalyzer_path)
+refseq <- selectRefSeq(file.path(BiqAnalyzer_path, "Master_Sequence.txt"))
 }
 \keyword{graphs}
 

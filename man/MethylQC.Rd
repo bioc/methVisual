@@ -33,13 +33,12 @@ Returns data frame of sequences names after QC and their paths saves QCINFO.Rdat
 ## make sure that you have writing permission under R.home()
 ## directory. If you do not have permission choose your own path. 
 
-dir.create(file.path(R.home(component="home"),"/BiqAnalyzer")) 
-makeLocalExpDir(dataPath="/examples/BiqAnalyzer",
-	localDir=file.path(R.home(component="home"),"/BiqAnalyzer"))
-datameth <-MethDataInput(file.path(R.home(component="home"),
-				"/BiqAnalyzer/PathFileTab.txt"))
-refseq <- selectRefSeq(file.path(R.home(component="home"),
-			"/BiqAnalyzer/Master_Sequence.txt"))
+#dir.create(file.path(R.home(component="home"),"/BiqAnalyzer"))
+BiqAnalyzer_path <- file.path(tempdir(), "BiqAnalyzer")
+dir.create(BiqAnalyzer_path)
+makeLocalExpDir(dataPath="/examples/BiqAnalyzer", localDir=BiqAnalyzer_path)
+datameth <-MethDataInput(file.path(BiqAnalyzer_path, "PathFileTab.txt"))
+refseq <- selectRefSeq(file.path(BiqAnalyzer_path, "Master_Sequence.txt"))
 QCdata <- MethylQC(refseq, datameth)
 }
 \keyword{graphs}

@@ -27,9 +27,10 @@ Help function for saving data provided along with the package followed by creati
 ## make sure that you have writing permission under 
 ## R.home() directory. If you do not have permission
 ## choose your own path (localDir=YOUR_OWN_PATH/).
-dir.create(file.path(R.home(component="home"),"/BiqAnalyzer")) 
-makeLocalExpDir(dataPath="/examples/BiqAnalyzer",
-	localDir=file.path(R.home(component="home"),"/BiqAnalyzer"))
+#dir.create(file.path(R.home(component="home"),"/BiqAnalyzer"))
+BiqAnalyzer_path <- file.path(tempdir(), "BiqAnalyzer")
+dir.create(BiqAnalyzer_path)
+makeLocalExpDir(dataPath="/examples/BiqAnalyzer", localDir=BiqAnalyzer_path)
 }
 \keyword{graphs}
 

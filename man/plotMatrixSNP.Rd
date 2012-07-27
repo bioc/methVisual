@@ -36,11 +36,13 @@ summeryMatrix <- matrixSNP(methData)
 ## In order to save plotMatrixSNP.pdf, make sure that you have writing 
 ## permission under R.home() directory. If you do not have permission
 ## choose your own path. 
-dir.create(file.path(R.home(component="home"),"/BiqAnalyzer")) 
+#dir.create(file.path(R.home(component="home"),"/BiqAnalyzer"))
+BiqAnalyzer_path <- file.path(tempdir(), "BiqAnalyzer")
+dir.create(BiqAnalyzer_path)
 data(methData)
 summary <- matrixSNP(methData)
-plotMatrixSNP(summary,methData,file=file.path(R.home(component="home"),
-			"/BiqAnalyzer/","plotMatrixSNP.pdf")) 
+plotMatrixSNP(summary,methData,
+              file=file.path(BiqAnalyzer_path, "plotMatrixSNP.pdf"))
 }
 \keyword{graphs}
 

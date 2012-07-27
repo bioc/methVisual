@@ -20,11 +20,13 @@ readBisulfFASTA(sFileName,sDirName)
 ## In order to use the following example 
 ## make sure that you have writing permission under R.home()
 ## directory. If you do not have permission choose your own path. 
-dir.create(file.path(R.home(component="home"),"/BiqAnalyzer")) 
-makeLocalExpDir(dataPath="/examples/BiqAnalyzer",
-	localDir=file.path(R.home(component="home"),"/BiqAnalyzer"))
+#dir.create(file.path(R.home(component="home"),"/BiqAnalyzer")) 
+BiqAnalyzer_path <- file.path(tempdir(), "BiqAnalyzer")
+dir.create(BiqAnalyzer_path)
+makeLocalExpDir(dataPath="/examples/BiqAnalyzer", localDir=BiqAnalyzer_path)
 
-	readBisulfFASTA(sFileName=file.path(R.home(component="home"),"/BiqAnalyzer/multiFASTA.fasta"), sDirName= file.path(R.home(component="home"),"/BiqAnalyzer/"))
+readBisulfFASTA(sFileName=file.path(BiqAnalyzer_path,"multiFASTA.fasta"),
+                sDirName=BiqAnalyzer_path)
 }
 
 \keyword{graphs}

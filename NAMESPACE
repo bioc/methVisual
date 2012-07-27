@@ -3,7 +3,7 @@ importMethodsFrom(Biostrings, complement, pairwiseAlignment, pattern,
 
 importMethodsFrom(IRanges, cor, end, reverse, score, start, subject)
 
-importFrom(Biostrings, DNAString, readFASTA)
+importFrom(Biostrings, DNAString, readDNAStringSet)
 
 importFrom(ca, ca)
 

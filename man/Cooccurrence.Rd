@@ -33,8 +33,10 @@ summary plot that will be saved by default as pdf file under the given path and 
 ## permission under R.home() directory. If you do not have permission
 ## choose your own path. 
 #dir.create(file.path(R.home(component="home"),"/BiqAnalyzer")) 
+BiqAnalyzer_path <- file.path(tempdir(), "BiqAnalyzer")
+dir.create(BiqAnalyzer_path)
 data(methData)
-Cooccurrence(methData,file=paste(tempdir(),"/Cooccurrence.pdf",sep="")) 
+Cooccurrence(methData,file=file.path(BiqAnalyzer_path, "Cooccurrence.pdf")) 
 }
 \keyword{graphs}
 
