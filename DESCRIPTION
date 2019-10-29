@@ -2,7 +2,7 @@ Package: methVisual
 Title: Methods for visualization and statistics on DNA methylation data
 Description: The package 'methVisual' allows the visualization of DNA
         methylation data after bisulfite sequencing.
-Version: 1.38.0
+Version: 1.39.0
 Author: A. Zackay, C. Steinhoff
 Maintainer: Arie Zackay <arie.zackay@mail.huji.ac.il>
 Depends: R (>= 2.11.0), Biostrings(>= 2.4.8), plotrix,gsubfn,
